@@ -6,7 +6,7 @@ import { Category, Videos } from '.'
 // const [videos, setVideos] = useState(dummy.items);
 
 const MainConts = () => {
-  const [selectCategory, setSelectCategory] = useState('어피티')
+  const [selectCategory, setSelectCategory] = useState('슈카월드')
   const [videos, setVideos] = useState(null)
 
   useEffect(() => {

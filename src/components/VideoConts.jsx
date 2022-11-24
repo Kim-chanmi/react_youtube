@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import ReactPlayer from 'react-player'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { fetchAPI } from '../utils/fetchAPI'
-import { Videos } from '.'
+import { Videos, Loader } from '.'
+
+import { FcLike } from '@react-icons/all-files/fc/FcLike'
 
 const VideoConts = () => {
   const [videoDetail, setVideoDetail] = useState(null)
-  const [video, setVideos] = useState(null)
+  const [videos, setVideos] = useState(null)
   const { id } = useParams()
 
   useEffect(() => {
@@ -19,10 +21,12 @@ const VideoConts = () => {
     )
   }, [id])
 
-  // const {
-  //   snippet: { title, channelId, channelTitle },
-  //   statistics: { viewCount, likeCount },
-  // } = videoDetail
+  if (!videoDetail?.snippet) return <Loader />
+
+  const {
+    snippet: { title, channelId, channelTitle },
+    statistics: { viewCount, likeCount },
+  } = videoDetail
 
   return (
     <section className="videoConts">
@@ -35,9 +39,25 @@ const VideoConts = () => {
                 controls
               />
             </div>
-            <div className="desc"></div>
+            <div className="desc">
+              <span className="title">{title}</span>
+              <div className="channel">
+                <Link to={`/channel/${channelId}`}>{channelTitle}</Link>
+              </div>
+              <div className="count">
+                <div className="view">
+                  조회수 : {Number(viewCount).toLocaleString()}회
+                </div>
+                <div className="like">
+                  <FcLike />
+                  &nbsp;{Number(likeCount).toLocaleString()}
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="right"></div>
+          <div className="right">
+            <Videos videos={videos} layout="column" />
+          </div>
         </div>
       </div>
     </section>

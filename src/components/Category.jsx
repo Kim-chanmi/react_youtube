@@ -8,7 +8,7 @@ const Category = ({ selectCategory, setSelectCategory }) => {
         <button
           style={{
             backgroundColor:
-              category.name === selectCategory ? '#a42121' : 'transparent',
+              category.name === selectCategory ? '#ff8282' : 'transparent',
           }}
           key={category.name}
           onClick={() => setSelectCategory(category.name)}
